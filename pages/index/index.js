@@ -82,8 +82,8 @@ Page({
           const resJson = JSON.parse(res.data)
           if (resJson.success) {
             console.log(resJson)
-            wx.showToast({
-              title: '上传成功',
+            wx.showModal({
+              title: '上传成功'
             })
             that.setData({
               pictureID: null
