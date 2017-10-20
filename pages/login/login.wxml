@@ -1,0 +1,16 @@
+<!--pages/login/login.wxml-->
+
+<view class='form'>
+  <form bindsubmit="onSmit">
+    <input class='input' name='user' placeholder='输入账号'></input>
+    <input class='input' password name='psw' placeholder='输入密码'></input>
+    
+    <view class='code'>
+      验证码:
+      <image mode='widthFix' bindtap='onChange' class='verify' wx:if="{{url}}" src="{{url}}"></image>
+    </view>
+    <input class='input' name='code' placeholder='验证码'></input>
+    <button class='register' wx:if="{{!isOld}}">注册</button>
+    <button class='login' formType='submit'>登陆</button>
+  </form>
+</view>

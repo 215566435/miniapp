@@ -1,0 +1,38 @@
+
+.itemTable {
+  display: flex;
+  text-align: center;
+  
+}
+
+.itemTable view{
+  word-break: break-all;
+  padding: 4px;
+}
+.num {
+  width: 10%;
+  border-top: 1px solid rgba(120, 120, 120, 0.3);
+}
+
+.state{
+  width: 10%;
+  border-left: 1px solid rgba(120, 120, 120, 0.3);
+  border-top: 1px solid rgba(120, 120, 120, 0.3);
+}
+.stock {
+  width: 10%;
+  border-left: 1px solid rgba(120, 120, 120, 0.3);
+  border-top: 1px solid rgba(120, 120, 120, 0.3);
+}
+
+.goodName {
+  width: 60%;
+  border-left: 1px solid rgba(120, 120, 120, 0.3);
+  border-top: 1px solid rgba(120, 120, 120, 0.3);
+}
+
+.quntity {
+  width: 10%;
+  border-left: 1px solid rgba(120, 120, 120, 0.3);
+  border-top: 1px solid rgba(120, 120, 120, 0.3);
+}

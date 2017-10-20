@@ -1,0 +1,37 @@
+/* pages/ProductDetail/ProductDetail.wxss */
+
+.title{
+  padding: 10px;
+  border-bottom: 1px solid rgba(120, 120, 120, 0.3);
+}
+.content{
+  margin-top: 10px;
+  border-top: 1px solid rgba(120, 120, 120, 0.3);
+}
+.price{
+  color: #f56a00;
+  padding: 4px;
+}
+.property{
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  font-size: 13px;
+}
+.slide-image{
+  width: 100%;
+}
+.keys{
+  margin-top: 4px;
+  padding: 4px;
+}
+.values{
+  margin-top: 4px;
+  margin-left: 16px;
+  border:1px solid rgba(120, 120, 120, 0.3);
+  padding: 8px;
+  border-radius: 4px;
+}
+.contentImg{
+  width: 100%;
+}

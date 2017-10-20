@@ -1,0 +1,27 @@
+<!--pages/ProductDetail/ProductDetail.wxml-->
+<swiper class='swiper' style="height:220px;" indicator-dots>
+  <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+    <swiper-item>
+      <image src="{{'http://cdn2u.com'+item.image+'?width=260&height=260&mode=crop&bgcolor=white'}}" class="slide-image" mode='aspectFit' />
+    </swiper-item>
+  </block>
+</swiper>
+
+<view class="title" >
+  <view>{{name}}</view>
+  <view class='price'>{{currency ==='aud'?'$':'¥'}} {{price[currency].price}} 包邮参考价：{{price[currency].priceAboutFreeDelivery?price[currency].priceAboutFreeDelivery:"0"}}
+  </view>
+</view>
+
+<view wx:if="{{property}}" wx:key="{{index}}" class='property' wx:for="{{property}}">
+  <view class='keys'>{{item.key}}:</view>
+  <view class='values' wx:key="{{index}}" wx:for="{{item.values}}" wx:for-item="itm">
+    {{itm}}
+  </view>
+</view>
+
+<view class="content">
+  <view wx:key="{{index}}" wx:for="{{contentImages}}">
+    <image class='contentImg' src="{{'http://cdn2u.com'+item+'?width=750&constrain=true&bgcolor=white'}}" mode='widthFix' />
+  </view>
+</view>

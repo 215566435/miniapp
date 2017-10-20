@@ -1,0 +1,36 @@
+<!--pages/product/product.wxml-->
+<view>
+  <input class='searchInput' bindconfirm='searchComfirm' confirm-type="搜索" placeholder='输入查询商品' />
+
+  <view class='buttonGroup'>
+
+    <picker class='picker' wx:if="{{locationChinese.length}}" bindchange="bindPickerChange" value="{{0}}" range="{{locationChinese}}">{{locationChinese[pickerIndex]}}</picker>
+
+    <view class='customSwitch' wx:if="{{itemList.length}}">
+      <view bindtap='currency' style="color:{{currency === 1?'white':''}};background:{{currency === 1?'#00a854':'#eee'}}" id='rmb'>RMB</view>
+      <view bindtap='currency' style="color:{{currency === 0?'white':''}};background:{{currency === 0?'#00a854':'#eee'}}" id='aud'>AUD</view>
+    </view>
+    <view wx:if="{{itemList.length}}" class='showImg' style="color:{{showImage?'white':'black'}};background:{{showImage?'#00a854':'#eee'}}" bindtap='showImage'>显示图片</view>
+
+  </view>
+</view>
+
+
+
+<view class='table-cell' wx:if="{{itemList.length}}">
+  <view class='name'>名称</view>
+  <view class='weight'>毛重</view>
+  <view class='price'>价钱</view>
+</view>
+<view class='table-cell' id='{{item.id}}' bindtap='tapCell' style='background:{{item.status==="OutStock"?"#fabeb9":index%2===1?"white":"#e9e9e9"}}' wx:key="{{index}}" wx:for='{{itemList}}'>
+  <view class='name'>
+    <image class='img' wx:if="{{showImage}}" src='{{URL+item.image+"?width=50&height=50&constrain=true&bgcolor=white"}}'></image>
+    <view class='state' style='background:{{item.status==="OutStock"?"#f04134":""}}'>{{item.stock?item.stock+'个':stockState[item.status]}}</view>
+    {{item.name}}
+  </view>
+  <view class='weight'>{{item.weight}}kg</view>
+  <view class='price'>
+    <view>单价:{{item.prices[currency].price}}</view>
+    <view>包邮价:{{item.prices[currency].deliveryIncludedPrice?item.prices[currency].deliveryIncludedPrice:"0"}}</view>
+  </view>
+</view>

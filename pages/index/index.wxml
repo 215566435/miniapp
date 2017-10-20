@@ -1,0 +1,29 @@
+<!--index.wxml-->
+
+<view wx:if="{{itemTable.length === 1?false:true}}">
+
+
+  <view style='background:#eee' class='normal cell'>包裹号：{{manifest.id}}</view>
+  <view class='normal cell'>会员：{{}}</view>
+  <view style='background:#eee' class='normal cell'>快递：{{deliveryStatus[manifest.deliveryStatus]}}</view>
+
+  <view>
+    <view class='itemTable' wx:key='{{index}}' wx:for="{{itemTable}}" style='background:{{index %2 ===0?"white":"#eee"}}'>
+      <view class='num'>{{index ===0 ? item.id:index}}</view>
+      <view class='state'>{{index === 0?item.status:packItemStatus[item.status]}}</view>
+      <view class='stock'>{{index === 0?item.originalStockStatus:stockStatus[item.originalStockStatus]}}</view>
+      <view class='goodName'>{{item.name}}</view>
+      <view class='quntity'>{{item.qty}}</view>
+    </view>
+  </view>
+  <view class='normal cell' wx:key="{{index}}" style="background:{{item[1]}}" wx:for="{{peopleDetail}}">{{item[0]}}</view>
+
+</view>
+
+<view class='tab'>
+  <view class='function'>
+    <view bindtap='scan' class='scan'>扫码</view>
+    <view bindtap='sendTo' wx:if='{{packState.show}}' class='request'>标记为{{packState.state}}</view>
+    <view bindtap='takePic' wx:if='{{pictureID}}' class='pic'>拍照</view>
+  </view>
+</view>
