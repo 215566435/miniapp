@@ -64,7 +64,7 @@ Page({
       fail: (res) => {
         if (res.errMsg !== 'scanCode:fail cancel') {
           console.log(res)
-          modal('扫码出错', res)
+          modal('扫码出错', '不支持的条形码类型')
         }
       }
     })

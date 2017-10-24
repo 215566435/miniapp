@@ -7,7 +7,7 @@ import {
   getButtonShow
 } from '../../utils/indexUtil'
 import {
-  rawPOST
+  rawPOST, POST
 } from '../../utils/util.js'
 
 const app = getApp()
@@ -30,8 +30,8 @@ Page({
     isValidPsw: true,
     isAdmin: false,
     manual: false,
-    manualInput:'',
-    address:''
+    manualInput: '',
+    address: ''
   },
 
   /**
@@ -103,7 +103,7 @@ Page({
       fail: (res) => {
         if (res.errMsg !== 'scanCode:fail cancel') {
           console.log(res)
-          modal('扫码出错', res)
+          modal('扫码出错', '不支持的条形码类型')
         }
       }
     })
@@ -131,22 +131,17 @@ Page({
   },
   manualtap: function (e) {
     this.setData({
-      manual:false
+      manual: false
     })
-    console.log(this.data.manualInput)
-    rawPOST({
-      url: URL + BindAttachment,
-      header: header,
-      data: {
-        id: this.data.manualInput,
-        address: this.data.address
-      }
+
+    POST(URL + BindAttachment, {
+      id: this.data.manualInput,
+      address: this.data.address
     }).then((res) => {
       if (res.data.success) {
-        modal('绑定成功')
+        updateSuccess.call(this, res.data)
       } else {
-        console.log(res)
-        modal('绑定失败', res.data.message)
+        uploadFail.call(this, res.data)
       }
     })
   },
@@ -172,33 +167,9 @@ Page({
           }
           const resJson = JSON.parse(res.data)
           if (resJson.success) {
-            const id = resJson.data.id
-            const str = '照片上传成功，已标记为ID:' + id + '的附件'
-            wx.showActionSheet({
-              itemList: [str, '继续拍照', '查看订单详情'],
-              success: function (res) {
-                if (res.tapIndex === 1) {
-                  that.takePic()
-                } else {
-                  wx.navigateTo({
-                    url: '../index/index?id=' + id,
-                  })
-                }
-              }
-            })
+            updateSuccess.call(that, resJson)
           } else {
-            const address = resJson.data.address
-            const id = resJson.data.id
-            const str = resJson.message + ''
-            const itemList = id ? [str, '重新拍照'] : [str, '重新拍照', '手动扫码', '手动输入单号']
-            wx.showActionSheet({
-              itemList: itemList,
-              success: function (res) {
-                if (actionStrategy[res.tapIndex]){
-                  actionStrategy[res.tapIndex](that, address)
-                }
-              }
-            })
+            uploadFail.call(that, resJson)
           }
         },
         fail: function (res) {
@@ -217,6 +188,9 @@ Page({
 
 })
 
+/**
+ * [str, '重新拍照', '手动扫码', '手动输入单号']
+ */
 const actionStrategy = {
   1: function (that) {
     that.takePic()
@@ -225,36 +199,83 @@ const actionStrategy = {
     wx.scanCode({
       success: (res) => {
         if (!res) {
-          modal('错误的条码', res.result)
+          scanFail.call(that, res, address)
           return
         }
-        rawPOST({
-          url: URL + BindAttachment,
-          header: header,
-          data: {
-            id: res.result,
-            address: address
-          }
+        POST(URL + BindAttachment, {
+          id: res.result,
+          address: address
         }).then((res) => {
           if (res.data.success) {
-            modal('绑定成功')
+            updateSuccess.call(that, res.data)
           } else {
-            modal('绑定失败', "请重试").then()
+            uploadFail.call(that, res.data)
           }
         })
       },
       fail: (res) => {
-        if (res.errMsg !== 'scanCode:fail cancel') {
-          console.log(res)
-          modal('扫码出错', res)
-        }
+        scanFail.call(that, res, address)
       }
     })
   },
-  3: function (that,address) {
+  3: function (that, address) {
     that.setData({
       manual: true,
       address: address
+    })
+  }
+}
+
+function updateSuccess(resJson) {
+  console.log(resJson)
+  const id = resJson.data.id
+  const address = resJson.data.address
+  let str = '照片上传成功，已标记为ID:' + id + '的附件'
+  if (id && address) {
+    str = '照片绑定成功，已标记为ID:' + id + '的附件'
+  }
+  const that = this
+  wx.showActionSheet({
+    itemList: [str, '继续拍照', '查看订单详情'],
+    success: function (res) {
+      if (res.tapIndex === 1) {
+        that.takePic()
+      } else {
+        wx.navigateTo({
+          url: '../index/index?id=' + id,
+        })
+      }
+    }
+  })
+}
+
+function uploadFail(resJson) {
+  const that = this
+  const address = resJson.data.address
+  const id = resJson.data.id
+  const str = resJson.message + ''
+  const itemList = id ? [str, '重新拍照'] : [str, '重新拍照', '手动扫码', '手动输入单号']
+  wx.showActionSheet({
+    itemList: itemList,
+    success: function (res) {
+      if (actionStrategy[res.tapIndex]) {
+        actionStrategy[res.tapIndex](that, address)
+      }
+    }
+  })
+}
+
+function scanFail(res, address) {
+  const that = this
+  if (res.errMsg !== 'scanCode:fail cancel') {
+    wx.showActionSheet({
+      itemList: ['扫码失败', '重新扫码', '手动输入单号'],
+      success: function (res) {
+        if (res.tapIndex === 0) return
+        if (actionStrategy[res.tapIndex + 1]) {
+          actionStrategy[res.tapIndex + 1](that, address)
+        }
+      }
     })
   }
 }
