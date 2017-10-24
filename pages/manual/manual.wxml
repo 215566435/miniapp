@@ -1,0 +1,2 @@
+<!--pages/manual/manual.wxml-->
+<image src='{{URL + address}}' style='width:100%' mode='widthFix'></image>

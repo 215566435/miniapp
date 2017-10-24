@@ -4,7 +4,8 @@
     "pages/index/index",
     "pages/ProductDetail/ProductDetail",
     "pages/me/me",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/manual/manual"
   ],
   "window": {
     "backgroundTextStyle": "light",

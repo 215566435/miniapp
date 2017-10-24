@@ -11,7 +11,7 @@ import {
 
 const URL = app.globalData.URL
 const getContext = '/api/miniapp/context/get'
-const Upload = '/api/miniapp/pack/UploadPhoto/?packid='
+const Upload = '/api/miniapp/pack/MiniUploads/?packid='
 const getPackInfo = '/api/miniapp/pack/getpack'
 const markAs = '/api/miniapp/pack/markas'
 const token = wx.getStorageSync('token') || ''
@@ -28,9 +28,9 @@ Page({
     peopleDetail: [],
     pictureID: null,//用于放置扫码id
     packState: {},
-    id:''
+    id: ''
   },
-  onLoad: function () {
+  onLoad: function (option) {
     wx.request({
       url: URL + getContext,
       header: header,
@@ -45,6 +45,11 @@ Page({
         })
       }
     })
+    if(option.id){
+      this.request(option.id)
+    }else{
+      this.scan()
+    }
   },
 
   scan: function () {
@@ -67,30 +72,50 @@ Page({
   takePic: function () {
     const url = URL + Upload + this.data.pictureID
     const that = this
-    console.log(url)
     takePhoto().then((res) => {
       wx.showLoading({
         title: '正在上传',
       })
       let tmpPath = res.tempFilePaths[0]
+      console.log(header)
       wx.uploadFile({
         url: url,
         header: header,
         filePath: tmpPath,
-        name: 'gezhongpick',
+        name: 'dasd',
         success: function (res) {
+          wx.hideLoading()
+          console.log(res)
+          if (res.statusCode !== 200) {
+            modal('上传失败')
+            return
+          }
           const resJson = JSON.parse(res.data)
           if (resJson.success) {
-            console.log(resJson)
-            wx.showModal({
-              title: '上传成功'
-            })
-            that.setData({
-              pictureID: null
+            const id = resJson.data.id
+            const str = '照片上传成功，已标记为ID:'+id+'的附件'
+            wx.showActionSheet({
+              itemList: [str,'继续拍照', '查看订单详情'],
+              success:function(res){
+                if(res.tapIndex === 1){
+                  that.takePic()
+                }else{
+                  that.request(id)
+                }
+              }
             })
           } else {
-            modal('上传失败', resJson.message)
+            modal(resJson.message,'ID:'+resJson.data.id + ' 的包裹不存在，点确定继续拍照').then((res)=>{
+              if (res.confirm){
+                that.takePic()
+              }
+            })
           }
+        },
+        fail: function (res) {
+
+        },
+        complete: function (res) {
         }
       })
     }).catch((res) => {
@@ -112,6 +137,7 @@ Page({
       method: 'POST',
       data: JSON.stringify({ id: code }),
       success: (res) => {
+        console.log(res)
         wx.hideLoading()
         if (!res.data.success) {
           modal(res.data.message, '请求码:' + res.statusCode + '\n扫码内容：' + code)

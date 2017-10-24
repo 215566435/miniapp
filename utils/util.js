@@ -15,6 +15,7 @@ const formatNumber = n => {
 }
 const token = wx.getStorageSync('token') || ''
 const header = { 'Authorization': 'token ' + token }
+
 const POST = (url, data) => {
   return new Promise((resole, reject) => {
     wx.showNavigationBarLoading()
@@ -38,7 +39,7 @@ const rawPOST = (obj) => {
     wx.showNavigationBarLoading()
     wx.request({
       url: obj.url,
-      header: obj.header || {},
+      header: obj.header || header,
       method: 'POST',
       data: JSON.stringify(obj.data),
       success: function (res) {
@@ -52,6 +53,10 @@ const rawPOST = (obj) => {
       },
       fail: function (res) {
         reject(res)
+      },
+      complete:function(res){
+        wx.hideNavigationBarLoading()
+        resole(res)
       }
     })
   })

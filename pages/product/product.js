@@ -1,27 +1,11 @@
 // pages/product/product.js
+import { POST } from '../../utils/util.js'
+import { rawPOST } from '../../utils/util.js'
+
 const app = getApp()
 const URL = app.globalData.URL + '/api/miniapp'
 const token = wx.getStorageSync('token') || ''
 const header = { 'Authorization': 'token ' + token }
-
-const POST = (url, data) => {
-  return new Promise((resole, reject) => {
-    wx.showNavigationBarLoading()
-    wx.request({
-      url: url,
-      header: header,
-      method: 'POST',
-      data: JSON.stringify(data),
-      success: function (res) {
-        wx.hideNavigationBarLoading()
-        resole(res)
-      },
-      fail: function (res) {
-        reject(res)
-      }
-    })
-  })
-}
 
 
 Page({
@@ -45,7 +29,7 @@ Page({
   onLoad: function (options) {
     console.log('载入')
     app.globalData.callBack.push(this.onContextFinished)
-    if (app.globalData.location){
+    if (app.globalData.location) {
       this.onContextFinished()
     }
   },
@@ -60,11 +44,11 @@ Page({
       locationEnglish: Object.keys(app.globalData.location),
       locationChinese: chinese
     })
-    console.log(app.globalData.stockStatus)
   },
+  /**
+   * 下拉更新
+   */
   onPullDownRefresh: function () {
-    console.log('下拉更新')
-
     POST(
       URL + '/product/list',
       PostAction(
@@ -131,20 +115,20 @@ Page({
       this.data.locationEnglish[this.data.pickerIndex]
     )
     const value = res.detail.value
-    wx.request({
+    rawPOST({
       url: URL + '/product/list',
       header: header,
       method: 'POST',
-      data: JSON.stringify(PostJson),
-      success: (res) => {
-        this.setData({
-          itemList: res.data.data.items,
-          currentPage: res.data.data.page.currentPage,
-          totalPages: res.data.data.page.totalPages,
-          currentKeyWord: value
-        })
-        console.log(res)
-      }
+      data: PostJson
+    }).then((res) => {
+      this.setData({
+        itemList: res.data.data.items,
+        currentPage: res.data.data.page.currentPage,
+        totalPages: res.data.data.page.totalPages,
+        currentKeyWord: value
+      })
+    }).catch((res) => {
+
     })
   }
 })

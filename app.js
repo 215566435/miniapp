@@ -1,28 +1,28 @@
 //app.js
 import { getDict } from './utils/indexUtil'
-const URL = 'https://wx.niuaomall.com'
+import { rawPOST } from './utils/util.js'
+
+const URL = 'http://192.168.1.100:8005'
 const getContext = '/api/miniapp/context/get'
 App({
   onLaunch: function () {
-    wx.request({
+    rawPOST({
       url: URL + getContext,
       header: { 'Authorization': 'token 00A3DDD6702C413B94A688BB3D5B604A' },
-      method: 'POST',
-      data: '{}',
-      success: (res) => {
-        console.log('成功')
-        this.globalData.stockStatus = getDict(res.data.data.stockStatus)
-        this.globalData.location = getDict(res.data.data.stockLocation)
-        this.globalData.callBack.forEach((cb) => {
-          cb(this.globalData)
-        })
-      },
-      fail:function(res){
-        console.log(res)
-      },
-      complete:function(res){
-        console.log(res)
-      }
+      data: '{}'
+    }).then((res) => {
+      this.globalData.stockStatus = getDict(res.data.data.stockStatus)
+      this.globalData.location = getDict(res.data.data.stockLocation)
+      this.globalData.callBack.forEach((cb) => {
+        cb(this.globalData)
+      })
+    })
+
+    rawPOST({
+      url:URL +'/api/miniapp/login/getcurrentuser',
+      method:"GET"
+    }).then((res)=>{
+      console.log(res)
     })
 
     // const token = wx.getStorageSync('token')

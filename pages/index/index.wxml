@@ -24,6 +24,6 @@
   <view class='function'>
     <view bindtap='scan' class='scan'>扫码</view>
     <view bindtap='sendTo' wx:if='{{packState.show}}' class='request'>标记为{{packState.state}}</view>
-    <view bindtap='takePic' wx:if='{{pictureID}}' class='pic'>拍照</view>
+    <view bindtap='takePic' wx:if="{{false}}" class='pic'>拍照</view>
   </view>
 </view>

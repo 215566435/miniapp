@@ -23,12 +23,24 @@
   </view>
 </view>
 
-<view class='searchWrap' bindtap='onSearch' wx:if="{{isAdmin}}">
-  <image class='search' src='../../res/text-file.png'></image>
-  <view>订单查询</view>
+<view class='function'>
+  <view class='searchWrap' bindtap='onSearch' wx:if="{{isAdmin}}">
+    <image class='search' src='../../res/text-file.png'></image>
+    <view>订单查询</view>
+  </view>
+  <view class='photoTake' bindtap='takePic' wx:if="{{isAdmin}}">
+    <image class='search' src='../../res/photo-camera-outline.png'></image>
+    <view>包裹拍照</view>
+  </view>
+</view>
+
+<view class='manual' wx:if='{{manual}}'>
+  <input class='manual-input' focus='{{manual}}' bindinput='manualInput' placeholder='手动输入包裹号'></input>
+  <button bindtap='manualtap'>绑定</button>
 </view>
 
 
-<view  class='out' wx:if='{{isLogin}}'>
-  <button class='logout' bindtap='onLogout' >登出</button>
+
+<view class='out' wx:if='{{isLogin}}'>
+  <button class='logout' bindtap='onLogout'>登出</button>
 </view>

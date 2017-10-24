@@ -1,5 +1,5 @@
 export const modal = (title, content) => {
-  let newContent = content + ''
+  let newContent = content||''
   return new Promise((resolve, reject) => {
     wx.showModal({
       title: title,

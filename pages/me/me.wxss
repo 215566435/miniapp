@@ -42,10 +42,23 @@
 }
 
 
+.function{
+  display: flex;
+  flex-grow: row;
+}
 .searchWrap{
   display: flex;
   align-items: center;
-  flex-direction: column;
+  justify-content: center;
+  flex-flow: column;
+  width: 100%;
+}
+.photoTake{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+   width: 100%;
+  flex-flow: column;
 }
 .check{
   margin-left: 40px;
@@ -109,4 +122,16 @@
 }
 .out{
   margin-top: 60px;
+}
+
+.manual{
+  margin-top: 40px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+.manual-input{
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid rgba(120, 120, 120, 0.6);
+  border-radius: 4px;
 }

@@ -78,7 +78,6 @@ function parseTwo(property) {
     }
   })
 
-  console.log({ [firstKey]: map })
   return {
     [firstKey]: map
   }
