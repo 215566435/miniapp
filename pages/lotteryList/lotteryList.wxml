@@ -1,0 +1,8 @@
+<!--pages/lotteryList/lotteryList.wxml-->
+<view class='load' hidden='{{array.length === 0?false:true}}'>暂时无记录</view>
+<view wx:for="{{array}}" class='ticket'>
+  <view>金额：{{item.amount}}</view>
+  <view class='exp'>过期时间:{{item.expiration}}</view>
+  <view class='code'>代金券号:{{item.vouchersCode}}</view>
+  <view class='status'>{{item.status}}</view>
+</view>

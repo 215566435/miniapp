@@ -2,7 +2,7 @@
 import { getDict } from './utils/indexUtil'
 import { rawPOST } from './utils/util.js'
 
-const URL = 'http://192.168.1.100:8005'
+const URL = 'https://wx.niuaomall.com/'
 const getContext = '/api/miniapp/context/get'
 App({
   onLaunch: function () {

@@ -1,0 +1,140 @@
+<!--pages/lottery/lottery.wxml-->
+
+<!-- <view class='price' bindtap='list'>
+   
+  <text>点击查看抽取记录></text>
+</view>
+
+
+
+
+<view class='ticket' hidden='{{amount == 0?true:false}}' bindtap='dismiss'>
+  <view>金额：{{amount}}</view>
+  <view class='code'>代金券号:{{vouchersCode}}</view>
+  <text class='dismiss'>点击关闭</text>
+</view>  -->
+
+<text class='record' style='{{recordStyle}}'>点击查看抽取记录></text>
+<image src='../../res/fpd.png' mode="widthFix" class="bk" />
+
+
+<image style='{{btnStyle}}' src=' ../../res/choujiang.png ' mode="widthFix" class="btn" bindtap='onChou' />
+<text class='opt' style='{{numberStyle}}'>{{Opportunity}}</text>
+
+<template name="slotMachine">
+  <view class="machine_wp">
+    <view class="machine_item_wp first">
+      <view class="machine_item_slide" style="transform: translateY({{transY1}}px);-webkit-transform: translateY({{transY1}}px)">
+        <view class="machine_item_ele">2</view>
+        <view class="machine_item_ele">1</view>
+        <view class="machine_item_ele">2</view>
+        <view class="machine_item_ele">3</view>
+        <view class="machine_item_ele">4</view>
+        <view class="machine_item_ele">5</view>
+        <view class="machine_item_ele">6</view>
+        <view class="machine_item_ele">7</view>
+        <view class="machine_item_ele">8</view>
+        <view class="machine_item_ele">9</view>
+        <view class="machine_item_ele">0</view>
+      </view>
+    </view>
+
+    <view class="machine_item_wp second">
+      <view class="machine_item_slide" style="transform: translateY({{transY2}}px);-webkit-transform: translateY({{transY2}}px)">
+        <view class="machine_item_ele">0</view>
+        <view class="machine_item_ele">1</view>
+        <view class="machine_item_ele">2</view>
+        <view class="machine_item_ele">3</view>
+        <view class="machine_item_ele">4</view>
+        <view class="machine_item_ele">5</view>
+        <view class="machine_item_ele">6</view>
+        <view class="machine_item_ele">7</view>
+        <view class="machine_item_ele">8</view>
+        <view class="machine_item_ele">9</view>
+        <view class="machine_item_ele">0</view>
+      </view>
+    </view>
+
+    <view class="machine_item_wp third">
+      <view class="machine_item_slide" style="transform: translateY({{transY3}}px);-webkit-transform: translateY({{transY3}}px)">
+        <view class="machine_item_ele">1</view>
+        <view class="machine_item_ele">1</view>
+        <view class="machine_item_ele">2</view>
+        <view class="machine_item_ele">3</view>
+        <view class="machine_item_ele">4</view>
+        <view class="machine_item_ele">5</view>
+        <view class="machine_item_ele">6</view>
+        <view class="machine_item_ele">7</view>
+        <view class="machine_item_ele">8</view>
+        <view class="machine_item_ele">9</view>
+        <view class="machine_item_ele">0</view>
+      </view>
+    </view>
+
+    <view class="machine_item_wp forth">
+      <view class="machine_item_slide " style="transform: translateY({{transY4}}px);-webkit-transform: translateY({{transY4}}px)">
+        <view class="machine_item_ele">8</view>
+        <view class="machine_item_ele">1</view>
+        <view class="machine_item_ele">2</view>
+        <view class="machine_item_ele">3</view>
+        <view class="machine_item_ele">4</view>
+        <view class="machine_item_ele">5</view>
+        <view class="machine_item_ele">6</view>
+        <view class="machine_item_ele">7</view>
+        <view class="machine_item_ele">8</view>
+        <view class="machine_item_ele">9</view>
+        <view class="machine_item_ele">0</view>
+      </view>
+    </view>
+
+    <view class="machine_item_wp point">
+      <view class="machine_item_slide">
+        <view class="machine_item_ele">.</view>
+      </view>
+    </view>
+
+    <view class="machine_item_wp fifth">
+      <view class="machine_item_slide" style="transform: translateY({{transY5}}px);-webkit-transform: translateY({{transY5}}px)">
+        <view class="machine_item_ele">0</view>
+        <view class="machine_item_ele">1</view>
+        <view class="machine_item_ele">2</view>
+        <view class="machine_item_ele">3</view>
+        <view class="machine_item_ele">4</view>
+        <view class="machine_item_ele">5</view>
+        <view class="machine_item_ele">6</view>
+        <view class="machine_item_ele">7</view>
+        <view class="machine_item_ele">8</view>
+        <view class="machine_item_ele">9</view>
+        <view class="machine_item_ele">0</view>
+      </view>
+    </view>
+
+    <view class="machine_item_wp sixth">
+      <view class="machine_item_slide" style="transform: translateY({{transY6}}px);-webkit-transform: translateY({{transY6}}px)">
+        <view class="machine_item_ele">0</view>
+        <view class="machine_item_ele">1</view>
+        <view class="machine_item_ele">2</view>
+        <view class="machine_item_ele">3</view>
+        <view class="machine_item_ele">4</view>
+        <view class="machine_item_ele">5</view>
+        <view class="machine_item_ele">6</view>
+        <view class="machine_item_ele">7</view>
+        <view class="machine_item_ele">8</view>
+        <view class="machine_item_ele">9</view>
+        <view class="machine_item_ele">0</view>
+      </view>
+    </view>
+
+    <view class="machine_item_wp money">
+      <view class="machine_item_slide">
+        <view class="machine_item_ele">¥</view>
+      </view>
+    </view>
+
+  </view>
+</template>
+
+
+<view class='price' bindtap='list' style='{{style}}'>
+  <template is="slotMachine" data="{{...machine}}"></template>
+</view>

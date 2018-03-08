@@ -1,0 +1,183 @@
+/* pages/lottery/lottery.wxss */
+@import '../../utils/components/slotMachine/slotMachine.wxss';
+
+.price {
+  z-index: 10;
+  background: rgba(0, 0, 0, 0);
+  color: yellow;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.record {
+  position: absolute;
+  text-align: center;
+  z-index: 10;
+  left: 30%;
+  font-size: 14px;
+}
+
+.opt {
+  color: yellow;
+  position: absolute;
+  text-align: center;
+  z-index: 10;
+  left: 52%;
+}
+
+@media screen and (max-width: 330px) {
+  .price {
+    width: 98%;
+    top: 60%;
+    left: 2%;
+  }
+
+  .opt {
+    top: 53%;
+  }
+
+  .record {
+    top: 61%;
+  }
+
+  .machine_wp .machine_item_wp {
+    width: 30px;
+    height: 80px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .fifth {
+    right: 8px;
+  }
+
+  .sixth {
+    left: -7px;
+  }
+
+  .money {
+    left: -6px;
+  }
+
+  .btn {
+    top: 88%;
+  }
+}
+
+@media screen and (min-width:360px ) {
+  .price {
+    top: 60%;
+    left: 5%;
+  }
+
+  .opt {
+    top: 52%;
+  }
+
+  .record {
+    top: 60%;
+  }
+
+  .first {
+    margin-left: -3px;
+  }
+
+  .second {
+    margin-left: 2px;
+  }
+
+  .third {
+    margin-left: 3px;
+  }
+
+  .forth {
+    margin-left: 3px;
+  }
+
+  .point {
+    margin-left: -5px;
+  }
+
+  .fifth {
+    margin-left: -5px;
+  }
+
+  .btn {
+    top: 86%;
+  }
+}
+
+@media screen and (min-width: 400px) {
+  .price {
+    top: 60%;
+    left: 9%;
+  }
+
+  .first {
+    margin-left: -15px;
+  }
+
+  .second {
+    margin-left: 5px;
+  }
+
+  .third {
+    margin-left: 5px;
+  }
+
+  .forth {
+    margin-left: 7px;
+  }
+
+  .point {
+    margin-left: -5px;
+  }
+
+  .fifth {
+    margin-left: 3px;
+  }
+
+  .sixth {
+    margin-left: 3px;
+  }
+
+  .money {
+    margin-left: 7px;
+  }
+
+  .btn {
+    top: 85%;
+  }
+}
+
+.bk {
+  width: 100%;
+}
+
+.btn {
+  z-index: 10;
+  background: rgba(0, 0, 0, 0);
+  position: absolute;
+  width: 60%;
+  left: 20%;
+}
+
+.ticket {
+  position: absolute;
+  top: 40%;
+  left: 20%;
+  padding: 30px;
+  z-index: 10;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.dismiss {
+  color: rgba(0, 0, 0, 0.4);
+}

@@ -1,34 +1,19 @@
 {
   "pages": [
+    "pages/lottery/lottery",
+    "pages/lotteryList/lotteryList",
     "pages/product/product",
     "pages/index/index",
     "pages/ProductDetail/ProductDetail",
     "pages/me/me",
     "pages/login/login",
     "pages/manual/manual"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "澳购助手",
     "navigationBarTextStyle": "black"
-  },
-  "tabBar": {
-    "selectedColor": "#f8803d",
-    "color": "#888",
-    "list": [
-      {
-        "pagePath": "pages/product/product",
-        "text": "查询商品",
-        "iconPath": "res/magnifier 2.png",
-        "selectedIconPath": "res/magnifier.png"
-      },
-      {
-        "pagePath": "pages/me/me",
-        "text": "个人中心",
-        "iconPath": "res/user.png",
-        "selectedIconPath": "res/user2.png"
-      }
-    ]
   }
 }
